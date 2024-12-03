@@ -40,71 +40,141 @@ class _QuizSetupScreenState extends State<QuizSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quiz Setup')),
+      appBar: AppBar(
+        title: const Text(
+          'Quiz Setup',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.purple,
+      ),
       body: _isLoadingCategories
           ? const Center(child: CircularProgressIndicator())
           : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            DropdownButtonFormField<int>(
-              value: _numQuestions,
-              decoration: const InputDecoration(labelText: 'Number of Questions'),
-              items: [5, 10, 15].map((num) {
-                return DropdownMenuItem(value: num, child: Text(num.toString()));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _numQuestions = value!;
-                });
-              },
+            Row(
+              children: [
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<int>(
+                    value: _numQuestions,
+                    decoration: const InputDecoration(labelText: 'Number of Questions'),
+                    items: [5, 10, 15].map((num) {
+                      return DropdownMenuItem(value: num, child: Text(num.toString()));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _numQuestions = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-        DropdownButtonFormField<int>(
-          value: _categoryId,
-          decoration: const InputDecoration(labelText: 'Category'),
-          items: _categories.map((category) {
-            return DropdownMenuItem<int>(
-              value: category['id'] as int,
-              child: Text(category['name'] as String),
-            );
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              _categoryId = value!;
-            });
-          },
-        ),
-        DropdownButtonFormField<String>(
-              value: _difficulty,
-              decoration: const InputDecoration(labelText: 'Difficulty'),
-              items: ['easy', 'medium', 'hard'].map((level) {
-                return DropdownMenuItem(value: level, child: Text(level));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _difficulty = value!;
-                });
-              },
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.green,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<int>(
+                    value: _categoryId,
+                    decoration: const InputDecoration(labelText: 'Category'),
+                    items: _categories.map((category) {
+                      return DropdownMenuItem<int>(
+                        value: category['id'] as int,
+                        child: Text(category['name'] as String),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _categoryId = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-            DropdownButtonFormField<String>(
-              value: _type,
-              decoration: const InputDecoration(labelText: 'Question Type'),
-              items: [
-                {'display': 'Multiple Choice', 'value': 'multiple'},
-                {'display': 'True/False', 'value': 'boolean'}
-              ].map((type) {
-                return DropdownMenuItem<String>(
-                  value: type['value'],
-                  child: Text(type['display']!),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _type = value!;
-                });
-              },
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    value: _difficulty,
+                    decoration: const InputDecoration(labelText: 'Difficulty'),
+                    items: ['easy', 'medium', 'hard'].map((level) {
+                      return DropdownMenuItem(value: level, child: Text(level));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _difficulty = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.purple,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    value: _type,
+                    decoration: const InputDecoration(labelText: 'Question Type'),
+                    items: [
+                      {'display': 'Multiple Choice', 'value': 'multiple'},
+                      {'display': 'True/False', 'value': 'boolean'}
+                    ].map((type) {
+                      return DropdownMenuItem<String>(
+                        value: type['value'],
+                        child: Text(type['display']!),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _type = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
